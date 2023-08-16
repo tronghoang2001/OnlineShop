@@ -1,0 +1,135 @@
+﻿@model OnlineShop.Models.RegisterModel
+@using BotDetect.Web.Mvc;
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />
+@{
+    MvcCaptcha registerCaptcha = new MvcCaptcha("ExampleCaptcha");
+    registerCaptcha.UserInputID = "CaptchaCode";
+}
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section sidebar{
+    <div class="row">
+        <div id="sidebar" class="span3">
+            @Html.Action("ProductCategory", "Product")
+            <div class="well well-small alert alert-warning cntr">
+                <h2>50% Discount</h2>
+                <p>
+                    only valid for online order. <br><br><a class="defaultBtn" href="#">Click here </a>
+                </p>
+            </div>
+            <div class="well well-small"><a href="#"><img src="/Content/client/assets/img/paypal.jpg" alt="payment method paypal"></a></div>
+
+            <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+            <br>
+            <br>
+            <ul class="nav nav-list promowrapper">
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/bootstrap-ecommerce-templates.png" alt="bootstrap ecommerce templates">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+                <li style="border:0"> &nbsp;</li>
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/shopping-cart-template.png" alt="shopping cart template">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+                <li style="border:0"> &nbsp;</li>
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/bootstrap-template.png" alt="bootstrap template">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+}
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+        <li class="active">Đăng ký</li>
+    </ul>
+    <h3>Đăng ký</h3>
+    <hr class="soft">
+    <div class="well">
+        @using (Html.BeginForm("Register", "User", new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            if (ViewBag.Success != null)
+            {
+                <div class="alert alert-success">@ViewBag.Success</div>
+            }
+            <div class="control-group">
+                <div class="controls">
+                    <input type="text" name="UserName" placeholder="Tên đăng nhập">
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="password" name="Password" placeholder="Mật khẩu">
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="password" name="ConfirmPassword" placeholder="Xác nhận mật khẩu">
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="text" name="Name" placeholder="Họ tên">
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="text" name="Address" placeholder="Địa chỉ">
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="email" name="Email" placeholder="Email">
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="text" name="Phone" placeholder="Số điện thoại">
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    @Html.Captcha(registerCaptcha)
+                    @Html.TextBox("CaptchaCode")
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" name="submitAccount" value="Đăng ký" class="shopBtn exclusive">
+                </div>
+            </div>
+        }
+    </div>
+</div>
+</div>

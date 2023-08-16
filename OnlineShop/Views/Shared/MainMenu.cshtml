@@ -1,0 +1,59 @@
+﻿@model List<OnlineShop.Models.EF.Menu>
+@{
+    var session = (OnlineShop.Commons.UserLogin)Session[OnlineShop.Commons.CommonConstants.USER_SESSION];
+}
+<!--
+Navigation Bar Section
+-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    @foreach (var item in Model)
+                    {
+                        <li><a href="@item.Link" target="@item.Target">@item.Text</a></li>
+                    }
+                </ul>
+                <form action="#" class="navbar-search pull-left">
+                    <input type="text" placeholder="Search" class="search-query span2">
+                </form>
+                @if (session == null)
+                {
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Đăng nhập <b class="caret"></b></a>
+                            <div class="dropdown-menu">
+                                @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-horizontal loginFrm" }))
+                                {
+                                    <div class="control-group">
+                                        <input type="text" class="span2" id="inputEmail" name="Username" placeholder="Tài khoản">
+                                    </div>
+                                    <div class="control-group">
+                                        <input type="password" class="span2" id="inputPassword" name="Password" placeholder="Mật khẩu">
+                                    </div>
+                                    <div class="control-group">
+                                        <button type="submit" class="shopBtn btn-block">Đăng nhập</button>
+                                    </div>
+                                }
+                            </div>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav pull-right">
+                        <li>
+                            @Html.ActionLink("Thoát", "Logout", "User")
+                        </li>
+                    </ul>
+                }
+                </div>
+        </div>
+    </div>
+</div>

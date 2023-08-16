@@ -1,0 +1,135 @@
+﻿@model OnlineShop.Models.EF.Content
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section title{
+    Content
+}
+@section jsFooter{
+    <script>
+        $('#btnSelectImage').on('click', function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtImage').val(url);
+            };
+            finder.popup();
+        })
+
+        CKEDITOR.replace('txtContent', {
+            customConfig: '/Content/admin/plugins/ckeditor/config.js',
+        });
+
+        CKEDITOR.replace('txtDescription', {
+            customConfig: '/Content/admin/plugins/ckeditor/config.js',
+        });
+    </script>
+}
+<style>
+    #btn-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+<div id="form-center">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Create New Content</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control", @placeholder = "Meta Title" } })
+                @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Description" }, id = "txtDescription" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="input-group mb-3">
+                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control", @id = "txtImage", @placeholder = "Image" }, id = "txtImage" })
+                    <input id="btnSelectImage" type="button" value="Chọn ảnh" class="btn btn-primary" />
+                </div>
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryID, null, "Chọn thể loại", new { @class = "form-select" })
+                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control", @placeholder = "Detail" }, id = "txtContent" })
+                @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Warranty, new { htmlAttributes = new { @class = "form-control", @placeholder = "Warranty" } })
+                @Html.ValidationMessageFor(model => model.Warranty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MetaDescriptions, new { htmlAttributes = new { @class = "form-control", @placeholder = "Meta Descriptions" } })
+                @Html.ValidationMessageFor(model => model.MetaDescriptions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MetaKeywords, new { htmlAttributes = new { @class = "form-control", @placeholder = "Meta Keywords" } })
+                @Html.ValidationMessageFor(model => model.MetaKeywords, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tags" } })
+                @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success" 
+                        id="btn-center">Tạo mới</button>
+            </div>
+        </div>
+
+    </div>
+    }
+</div>

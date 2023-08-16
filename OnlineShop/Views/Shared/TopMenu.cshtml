@@ -1,0 +1,32 @@
+﻿@model List<OnlineShop.Models.EF.Menu>
+<!--
+        Upper Header Section
+    -->
+@{ 
+    var session = (OnlineShop.Commons.UserLogin)Session[OnlineShop.Commons.CommonConstants.USER_SESSION];
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="topNav">
+        <div class="container">
+            <div class="alignR">
+                <div class="pull-left socialNw">
+                    <a href="#"><span class="icon-twitter"></span></a>
+                    <a href="#"><span class="icon-facebook"></span></a>
+                    <a href="#"><span class="icon-youtube"></span></a>
+                    <a href="#"><span class="icon-tumblr"></span></a>
+                </div>
+                @if (session == null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <a href="@item.Link" target="@item.Target">@item.Text</a>
+                    }
+                }
+                else
+                {
+                    <a href="#">Xin chào @session.UserName !</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

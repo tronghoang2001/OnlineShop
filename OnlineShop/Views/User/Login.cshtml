@@ -1,0 +1,111 @@
+﻿@model OnlineShop.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section sidebar{
+    <div class="row">
+        <div id="sidebar" class="span3">
+            @Html.Action("ProductCategory", "Product")
+            <div class="well well-small alert alert-warning cntr">
+                <h2>50% Discount</h2>
+                <p>
+                    only valid for online order. <br><br><a class="defaultBtn" href="#">Click here </a>
+                </p>
+            </div>
+            <div class="well well-small"><a href="#"><img src="/Content/client/assets/img/paypal.jpg" alt="payment method paypal"></a></div>
+
+            <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+            <br>
+            <br>
+            <ul class="nav nav-list promowrapper">
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/bootstrap-ecommerce-templates.png" alt="bootstrap ecommerce templates">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+                <li style="border:0"> &nbsp;</li>
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/shopping-cart-template.png" alt="shopping cart template">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+                <li style="border:0"> &nbsp;</li>
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/bootstrap-template.png" alt="bootstrap template">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+}
+    <div class="span9">
+        <ul class="breadcrumb">
+            <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+            <li class="active">Đăng nhập</li>
+        </ul>
+        <h3>Đăng nhập</h3>
+        <hr class="soft">
+
+        <div class="row">
+            <div class="span1"> &nbsp;</div>
+            <div class="span4">
+                <div class="well">
+                    @using (Html.BeginForm("Login", "User", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="control-group">
+                            <div class="controls">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword">Tên đăng nhập</label>
+                            <div class="controls">
+                                <input class="span3" type="text" name="Username" placeholder="Nhập tên đăng nhập...">
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword">Mật khẩu</label>
+                            <div class="controls">
+                                <input type="password" name="Password" class="span3" placeholder="Nhập mật khẩu...">
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="control-label">Ghi nhớ đăng nhập?</label>
+                                @Html.CheckBoxFor(model => model.RememberMe)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="defaultBtn">Đăng nhập</button> <a href="#">Forget password?</a>
+                            </div>
+                            <a href="/User/LoginFacebook">
+                                <img src="/Content/client/assets/img/iconFb.png" width="30" />
+                                Đăng nhập bằng Facebook
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

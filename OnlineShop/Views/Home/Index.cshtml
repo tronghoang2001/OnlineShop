@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var slides = (List<OnlineShop.Models.EF.Slide>)ViewBag.Slides;
+    var listNewProduct = (List<OnlineShop.Models.EF.Product>)ViewBag.NewProduct;
+    var listTopViewProduct = (List<OnlineShop.ViewModel.ProductViewModel>)ViewBag.TopViewProduct;
+    var listFeatureProduct = (List<OnlineShop.Models.EF.Product>)ViewBag.FeatureProduct;
+}
+
+@section sidebar{
+    <div class="row">
+        <div id="sidebar" class="span3">
+            @Html.Action("ProductCategory", "Product")
+            <div class="well well-small alert alert-warning cntr">
+                <h2>50% Discount</h2>
+                <p>
+                    only valid for online order. <br><br><a class="defaultBtn" href="#">Click here </a>
+                </p>
+            </div>
+            <div class="well well-small"><a href="#"><img src="/Content/client/assets/img/paypal.jpg" alt="payment method paypal"></a></div>
+
+            <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+            <br>
+            <br>
+            <ul class="nav nav-list promowrapper">
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/bootstrap-ecommerce-templates.png" alt="bootstrap ecommerce templates">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+                <li style="border:0"> &nbsp;</li>
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/shopping-cart-template.png" alt="shopping cart template">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+                <li style="border:0"> &nbsp;</li>
+                <li>
+                    <div class="thumbnail">
+                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                        <img src="/Content/client/assets/img/bootstrap-template.png" alt="bootstrap template">
+                        <div class="caption">
+                            <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+}
+<div class="span9">
+    <div class="well np">
+        <div id="myCarousel" class="carousel slide homCar">
+            <div class="carousel-inner">
+                @foreach (var item in slides)
+                {
+                    <div class="item active">
+                        <img style="width:100%" src="@item.Image" alt="bootstrap ecommerce templates">
+                        <div class="carousel-caption">
+                            @Html.Raw(@item.Description)
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!--
+    New Products
+    -->
+    <div class="well well-small">
+        <h3>New Products </h3>
+        <hr class="soften" />
+        <div class="row-fluid">
+            <div id="newProductCar" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <ul class="thumbnails">
+                            @foreach (var item in listNewProduct)
+                            {
+                                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                                <li class="span3">
+                                    <div class="thumbnail">
+                                        <a class="zoomTool" href="@url" title="details"><span class="icon-search"></span>Xem chi tiết</a>
+                                        <a href="@item.MetaTitle" class="tag"></a>
+                                        <a href="@url"><img src="@item.Image" alt="@item.Name"></a>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <ul class="thumbnails">
+                @foreach (var item in listTopViewProduct)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <a class="zoomTool" href="@url" title="details"><span class="icon-search"></span>Xem chi tiết</a>
+                            <a href="@url"><img src="@item.Image" alt="@item.Name"></a>
+                            <div class="caption cntr">
+                                <h4>@item.Name</h4>
+                                <p>@item.CateName</p>
+                                <p><strong>@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên hệ")</strong></p>
+                                <h4><a class="shopBtn" href="/them-gio-hang?productId=@item.ID&quantity=1" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                                <br class="clr">
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <!--
+    Featured Products
+    -->
+    <div class="well well-small">
+        <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Featured Products  </h3>
+        <hr class="soften" />
+        <div class="row-fluid">
+            <ul class="thumbnails">
+                @foreach (var item in listFeatureProduct)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <a class="zoomTool" href="@url" title="details"><span class="icon-search"></span>Xem chi tiết</a>
+                            <a href="@url"><img src="@item.Image" alt="@item.Name"></a>
+                            <div class="caption">
+                                <h5>@item.Name</h5>
+                                <h4>
+                                    <a class="defaultBtn" href="@url" title="Click to view"><span class="icon-zoom-in"></span></a>
+                                    <a class="shopBtn" href="/them-gio-hang?productId=@item.ID&quantity=1" title="add to cart"><span class="icon-plus"></span></a>
+                                    <span class="pull-right">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên hệ")</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
